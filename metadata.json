@@ -1,0 +1,5 @@
+{
+  "name": "Forex SMC Sniper WRM",
+  "description": "A sophisticated web application designed to scan the Forex market using Smart Money Concepts (SMC). It performs top-down analysis from macro to micro timeframes to identify high-probability trading opportunities, and includes a risk calculator to determine appropriate lot sizes.",
+  "requestFramePermissions": []
+}
