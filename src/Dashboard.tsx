@@ -162,11 +162,12 @@ export const Dashboard: React.FC = () => {
           isInitialLoad.current ? getHistoricalTrades() : Promise.resolve(null),
         ]);
       
-      const prevOpIds = new Set(opportunities.map(op => op.id));
-      const newOps = results.filter(op => !prevOpIds.has(op.id));
+      setOpportunities(prevOpportunities => {
+        const prevOpIds = new Set(prevOpportunities.map(op => op.id));
+        const newOps = results.filter(op => !prevOpIds.has(op.id));
 
-      if (newOps.length > 0) {
-        if (!isInitialLoad.current) {
+        if (newOps.length > 0) {
+          if (!isInitialLoad.current) {
             const alertedPairs = new Set<string>();
             newOps.forEach(op => {
                 if (watchlistAlerts.has(op.pair)) {
@@ -181,15 +182,13 @@ export const Dashboard: React.FC = () => {
             }
             setShowNotification(true);
             playNotificationSound();
+          }
+          const combined = [...newOps, ...prevOpportunities];
+          const unique = Array.from(new Map(combined.map(item => [item.id, item])).values());
+          return unique.slice(0, 50);
         }
-
-        setOpportunities(prev => {
-            const combined = [...newOps, ...prev];
-            const unique = Array.from(new Map(combined.map(item => [item.id, item])).values());
-            // Limit total displayed opportunities to prevent clutter
-            return unique.slice(0, 50);
-        });
-      }
+        return prevOpportunities;
+      });
       
       setMarketAnalysisData(analysisData);
       setEconomicEvents(events);
@@ -207,7 +206,7 @@ export const Dashboard: React.FC = () => {
       }
       setIsPolling(false);
     }
-  }, [opportunities, watchlistAlerts]);
+  }, [watchlistAlerts]);
 
   useEffect(() => {
     performScan();
