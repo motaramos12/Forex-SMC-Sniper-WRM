@@ -1,3 +1,5 @@
+
+
 import type { TradeOpportunity, Bias, SMCFinding } from '../types';
 import { PIP_VALUE_MULTIPLIER, getSymbolType, formatPrice } from '../constants';
 
@@ -111,7 +113,7 @@ export const sendTelegramMessage = async (opportunity: TradeOpportunity, account
         parse_mode: 'MarkdownV2',
       }),
     });
-    
+
     const responseText = await response.text();
     if (!response.ok) {
         console.error('Failed to send Telegram message. Status:', response.status, response.statusText);

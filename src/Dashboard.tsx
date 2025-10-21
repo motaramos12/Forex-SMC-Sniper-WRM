@@ -458,6 +458,12 @@ export const Dashboard: React.FC = () => {
         onToggleAutoPilot={handleToggleAutoPilot}
       />
       
+      <div className="bg-slate-800/60 py-2 border-b border-slate-700/80 sticky top-16 z-40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <MarketSessions />
+        </div>
+      </div>
+
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-16 md:mb-0 flex-grow">
         {isLoading && isInitialLoad.current ? (
           <div className="flex justify-center items-center h-[calc(100vh-10rem)]">
